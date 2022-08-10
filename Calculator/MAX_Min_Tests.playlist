@@ -1,0 +1,36 @@
+<Playlist Version="2.0">
+  <Rule Name="Includes" Match="Any">
+    <Rule Match="All">
+      <Property Name="Solution" />
+      <Rule Match="Any">
+        <Rule Match="All">
+          <Property Name="Project" Value="Calculator.Tests" />
+          <Rule Match="Any">
+            <Rule Match="All">
+              <Property Name="Namespace" Value="Calculator.Tests" />
+              <Rule Match="Any">
+                <Rule Match="All">
+                  <Property Name="Class" Value="CalcTests" />
+                  <Rule Match="Any">
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Calculator.Tests.CalcTests.Sum_MAX_and_1_throws_OverflowException" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="Sum_MAX_and_1_throws_OverflowException" />
+                      </Rule>
+                    </Rule>
+                    <Rule Match="All">
+                      <Property Name="TestWithNormalizedFullyQualifiedName" Value="Calculator.Tests.CalcTests.Sum_MIN_and_n1_throws_OverflowException" />
+                      <Rule Match="Any">
+                        <Property Name="DisplayName" Value="Sum_MIN_and_n1_throws_OverflowException" />
+                      </Rule>
+                    </Rule>
+                  </Rule>
+                </Rule>
+              </Rule>
+            </Rule>
+          </Rule>
+        </Rule>
+      </Rule>
+    </Rule>
+  </Rule>
+</Playlist>
