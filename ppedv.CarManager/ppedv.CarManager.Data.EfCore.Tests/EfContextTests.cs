@@ -1,5 +1,7 @@
 using AutoFixture;
 using AutoFixture.Kernel;
+using FluentAssertions;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ppedv.CarManager.Model;
 using System.Reflection;
 
@@ -13,7 +15,8 @@ namespace ppedv.CarManager.Data.EfCore.Tests
             var con = new EfContext();
             con.Database.EnsureDeleted();
 
-            Assert.True(con.Database.EnsureCreated());
+            //Assert.True(con.Database.EnsureCreated());
+            con.Database.EnsureCreated().Should().BeTrue();
         }
 
         [Fact]
@@ -24,14 +27,14 @@ namespace ppedv.CarManager.Data.EfCore.Tests
             using (var con = new EfContext())
             {
                 con.Cars.Add(car);
-                Assert.Equal(1, con.SaveChanges());
+                con.SaveChanges().Should().Be(1);
             }
 
             using (var con = new EfContext())
             {
                 var loaded = con.Find<Car>(car.Id);
-                Assert.NotNull(loaded);
-                Assert.Equal(car.Manufacturer, loaded.Manufacturer);
+                loaded.Should().NotBeNull();
+                loaded.Manufacturer.Should().Be(car.Manufacturer);
             }
         }
 
@@ -44,20 +47,20 @@ namespace ppedv.CarManager.Data.EfCore.Tests
             using (var con = new EfContext())
             {
                 con.Cars.Add(car);
-                Assert.Equal(1, con.SaveChanges());
+                con.SaveChanges().Should().Be(1);
             }
 
             using (var con = new EfContext())
             {
                 var loaded = con.Find<Car>(car.Id);
                 loaded.Manufacturer = newManu;
-                Assert.Equal(1, con.SaveChanges());
+                con.SaveChanges().Should().Be(1);
             }
 
             using (var con = new EfContext())
             {
                 var loaded = con.Find<Car>(car.Id);
-                Assert.Equal(newManu, loaded.Manufacturer);
+                loaded.Manufacturer.Should().Be(newManu);
             }
         }
 
@@ -69,25 +72,26 @@ namespace ppedv.CarManager.Data.EfCore.Tests
             using (var con = new EfContext())
             {
                 con.Cars.Add(car);
-                Assert.Equal(1, con.SaveChanges());
+                con.SaveChanges().Should().Be(1);
             }
 
             using (var con = new EfContext())
             {
                 var loaded = con.Find<Car>(car.Id);
                 con.Remove(loaded);
-                Assert.Equal(1, con.SaveChanges());
+                con.SaveChanges().Should().Be(1);
+
             }
 
             using (var con = new EfContext())
             {
                 var loaded = con.Find<Car>(car.Id);
-                Assert.Null(loaded);
+                loaded.Should().BeNull();
             }
         }
 
         [Fact]
-        public void Can_add_and_read_Car_with_AutoFixture()
+        public void Can_add_and_read_Car_with_AutoFixture_and_FluentAssertions()
         {
             var fix = new Fixture();
             fix.Behaviors.Add(new OmitOnRecursionBehavior());
@@ -97,14 +101,14 @@ namespace ppedv.CarManager.Data.EfCore.Tests
             using (var con = new EfContext())
             {
                 con.Cars.Add(car);
-                Assert.Equal(2, con.SaveChanges());
+                con.SaveChanges().Should().Be(2);
             }
 
             using (var con = new EfContext())
             {
                 var loaded = con.Find<Car>(car.Id);
-                Assert.NotNull(loaded);
-                Assert.Equal(car.Manufacturer, loaded.Manufacturer);
+                loaded.Should().NotBeNull();
+                loaded.Should().BeEquivalentTo(car, cfg => cfg.IgnoringCyclicReferences());
             }
         }
     }
