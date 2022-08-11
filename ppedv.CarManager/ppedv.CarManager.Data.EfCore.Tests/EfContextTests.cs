@@ -7,16 +7,32 @@ using System.Reflection;
 
 namespace ppedv.CarManager.Data.EfCore.Tests
 {
-    public class EfContextTests
+    public class EfContextTests:IDisposable
     {
         [Fact]
         public void Can_create_db()
         {
-            var con = new EfContext();
+            var con = new EfContext("Server=(localdb)\\mssqllocaldb;Database=Cars_CreateTest;Trusted_Connection=true");
             con.Database.EnsureDeleted();
 
-            //Assert.True(con.Database.EnsureCreated());
             con.Database.EnsureCreated().Should().BeTrue();
+
+            con.Database.EnsureDeleted();
+        }
+
+        public EfContextTests()
+        {
+            //init
+            using var con = new EfContext();
+            con.Database.EnsureCreated();
+        }
+
+
+        public void Dispose()
+        {
+            //cleanup
+            //using var con = new EfContext();
+            //con.Database.EnsureDeleted();
         }
 
         [Fact]
@@ -167,6 +183,7 @@ namespace ppedv.CarManager.Data.EfCore.Tests
                 loaded.Garage.Should().BeNull();
             }
         }
+
     }
 
     internal class PropertyNameOmitter : ISpecimenBuilder
