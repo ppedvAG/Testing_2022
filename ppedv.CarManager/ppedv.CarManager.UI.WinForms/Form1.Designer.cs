@@ -335,6 +335,7 @@
             // 
             // button1
             // 
+            this.button1.AccessibleName = "b1";
             this.button1.AutoSize = true;
             this.button1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.button1.Location = new System.Drawing.Point(3, 3);
