@@ -14,7 +14,9 @@ namespace ppedv.CarManager.Logic.CarService
 
         public Garage? GetGarageWithLeastCars()
         {
-            return Repository.GetAll<Garage>().OrderBy(x => x.Cars.Count).FirstOrDefault();
+            return Repository.GetAll<Garage>()
+                             .OrderBy(x => x.Cars.Count)
+                             .FirstOrDefault();
         }
 
 
