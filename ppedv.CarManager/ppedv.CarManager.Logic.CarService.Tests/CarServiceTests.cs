@@ -1,4 +1,5 @@
 using FluentAssertions;
+using Moq;
 using ppedv.CarManager.Model;
 using ppedv.CarManager.Model.Contracts;
 
@@ -9,11 +10,18 @@ namespace ppedv.CarManager.Logic.CarService.Tests
 
         [Fact]
         public void GetGarageWithLeastCars_empty_repo_should_return_null()
-        { }
+        {
+            var mock = new Mock<IRepository>();
+            var carService = new CarService(mock.Object);
+
+            var result = carService.GetGarageWithLeastCars();
+
+            result.Should().BeNull();
+        }
 
 
         [Fact]
-        public void GetGarageWithLeastCars_repo_with_3_garages_should_return_the_number_two()
+        public void GetGarageWithLeastCars_repo_with_3_garages_should_return_the_number_two__TestRepo()
         {
             var carService = new CarService(new TestRepo());
 
@@ -23,8 +31,70 @@ namespace ppedv.CarManager.Logic.CarService.Tests
         }
 
         [Fact]
+        public void GetGarageWithLeastCars_repo_with_3_garages_should_return_the_number_two__Moq()
+        {
+            var mock = new Mock<IRepository>();
+            mock.Setup(x => x.GetAll<Garage>()).Returns(() =>
+            {
+                var g1 = new Garage() { Name = "G1" };
+                g1.Cars.Add(new Car());
+                g1.Cars.Add(new Car());
+
+                var g2 = new Garage() { Name = "G2" };
+                g2.Cars.Add(new Car());
+
+                var g3 = new Garage() { Name = "G3" };
+                g3.Cars.Add(new Car());
+                g3.Cars.Add(new Car());
+                g3.Cars.Add(new Car());
+
+                return new[] { g1, g2, g3 };
+            });
+            var carService = new CarService(mock.Object);
+
+            var result = carService.GetGarageWithLeastCars();
+
+            result.Name.Should().Be("G2");
+        }
+
+        [Fact]
         public void GetGarageWithLeastCars_repo_with_2_garages_with_same_amount_of_card_should_return_the_one_with_most_doors()
-        { }
+        {
+            var mock = new Mock<IRepository>();
+            mock.Setup(x => x.GetAll<Garage>()).Returns(() =>
+            {
+                var g1 = new Garage() { Name = "G1" };
+                g1.Cars.Add(new Car() { Doors = 5 });
+                g1.Cars.Add(new Car() { Doors = 2 });
+
+                var g2 = new Garage() { Name = "G2" };
+                g2.Cars.Add(new Car() { Doors = 4 });
+                g2.Cars.Add(new Car() { Doors = 4 });
+
+                return new[] { g1, g2 };
+            });
+            var carService = new CarService(mock.Object);
+
+            var result = carService.GetGarageWithLeastCars();
+
+            result.Name.Should().Be("G2");
+        }
+
+        [Fact]
+        public void GetRandomGarage_returns_G7()
+        {
+            var mock = new Mock<IRepository>();
+            mock.Setup(x => x.GetById<Garage>(It.IsAny<int>()))
+                .Returns(new Garage() { Name = "G7" });
+
+            var carService = new CarService(mock.Object);
+
+            var result = carService.GetRandomGarage();
+
+            result.Name.Should().Be("G7");
+        }
+
+
 
 
 
