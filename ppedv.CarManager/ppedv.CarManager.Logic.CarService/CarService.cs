@@ -1,9 +1,22 @@
 ﻿using ppedv.CarManager.Model;
+using ppedv.CarManager.Model.Contracts;
 
 namespace ppedv.CarManager.Logic.CarService
 {
     public class CarService
     {
+        public IRepository Repository { get; }
+
+        public CarService(IRepository repository)
+        {
+            Repository = repository;
+        }
+
+        public Garage? GetGarageWithLeastCars()
+        {
+            return Repository.GetAll<Garage>().OrderBy(x => x.Cars.Count).FirstOrDefault();
+        }
+
 
         public void SetNewColor(Car car, string newColor)
         {

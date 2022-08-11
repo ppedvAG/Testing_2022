@@ -7,9 +7,10 @@ using System.Reflection;
 
 namespace ppedv.CarManager.Data.EfCore.Tests
 {
-    public class EfContextTests:IDisposable
+    public class EfContextTests : IDisposable
     {
         [Fact]
+        [Trait("Category", "Integration")]
         public void Can_create_db()
         {
             var con = new EfContext("Server=(localdb)\\mssqllocaldb;Database=Cars_CreateTest;Trusted_Connection=true");
@@ -36,6 +37,7 @@ namespace ppedv.CarManager.Data.EfCore.Tests
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void Can_add_and_read_Car()
         {
             var car = new Car() { Manufacturer = $"Baudi_{Guid.NewGuid()}" };
@@ -55,6 +57,7 @@ namespace ppedv.CarManager.Data.EfCore.Tests
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void Can_update_Car()
         {
             var car = new Car() { Manufacturer = $"Baudi_{Guid.NewGuid()}" };
@@ -81,6 +84,7 @@ namespace ppedv.CarManager.Data.EfCore.Tests
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void Can_delete_Car()
         {
             var car = new Car() { Manufacturer = $"Baudi_{Guid.NewGuid()}" };
@@ -107,6 +111,7 @@ namespace ppedv.CarManager.Data.EfCore.Tests
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void Can_add_and_read_Car_with_AutoFixture_and_FluentAssertions()
         {
             var fix = new Fixture();
@@ -130,6 +135,7 @@ namespace ppedv.CarManager.Data.EfCore.Tests
 
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void Deleting_a_car_should_not_delete_the_garage()
         {
             var car = new Car() { Manufacturer = "A1" };
@@ -157,6 +163,7 @@ namespace ppedv.CarManager.Data.EfCore.Tests
         }
 
         [Fact]
+        [Trait("Category", "Integration")]
         public void Deleting_a_garage_should_not_delete_the_car()
         {
             var car = new Car() { Manufacturer = "A1" };
