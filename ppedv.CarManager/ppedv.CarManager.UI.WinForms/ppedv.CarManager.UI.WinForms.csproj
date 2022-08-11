@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ppedv.CarManager.Data.EfCore\ppedv.CarManager.Data.EfCore.csproj" />
+    <ProjectReference Include="..\ppedv.CarManager.Logic.CarService\ppedv.CarManager.Logic.CarService.csproj" />
+    <ProjectReference Include="..\ppedv.CarManager.Model\ppedv.CarManager.Model.csproj" />
+  </ItemGroup>
+
+</Project>
