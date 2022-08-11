@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.CarManager.Data.EfCor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.CarManager.Data.EfCore.Tests", "ppedv.CarManager.Data.EfCore.Tests\ppedv.CarManager.Data.EfCore.Tests.csproj", "{1F94E85E-A8B1-43EC-A073-6F43CB505838}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.CarManager.Logic.CarService", "ppedv.CarManager.Logic.CarService\ppedv.CarManager.Logic.CarService.csproj", "{C71801D6-0781-4764-815E-4CF8752D40FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ppedv.CarManager.Logic.CarService.Tests", "ppedv.CarManager.Logic.CarService.Tests\ppedv.CarManager.Logic.CarService.Tests.csproj", "{875331CB-A0C1-4390-8CAD-192B461253F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{1F94E85E-A8B1-43EC-A073-6F43CB505838}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F94E85E-A8B1-43EC-A073-6F43CB505838}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F94E85E-A8B1-43EC-A073-6F43CB505838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C71801D6-0781-4764-815E-4CF8752D40FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C71801D6-0781-4764-815E-4CF8752D40FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C71801D6-0781-4764-815E-4CF8752D40FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C71801D6-0781-4764-815E-4CF8752D40FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{875331CB-A0C1-4390-8CAD-192B461253F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{875331CB-A0C1-4390-8CAD-192B461253F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{875331CB-A0C1-4390-8CAD-192B461253F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{875331CB-A0C1-4390-8CAD-192B461253F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
