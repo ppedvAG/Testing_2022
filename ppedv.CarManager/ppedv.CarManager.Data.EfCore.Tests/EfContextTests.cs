@@ -111,6 +111,62 @@ namespace ppedv.CarManager.Data.EfCore.Tests
                 loaded.Should().BeEquivalentTo(car, cfg => cfg.IgnoringCyclicReferences());
             }
         }
+
+
+        [Fact]
+        public void Deleting_a_car_should_not_delete_the_garage()
+        {
+            var car = new Car() { Manufacturer = "A1" };
+            var garage = new Garage() { Name = "G1" };
+            car.Garage = garage;
+
+            using (var con = new EfContext())
+            {
+                con.Add(car);
+                con.SaveChanges().Should().Be(2);
+            }
+
+            using (var con = new EfContext())
+            {
+                var loaded = con.Find<Car>(car.Id);
+                con.Remove(loaded);
+                con.SaveChanges().Should().Be(1);
+            }
+
+            using (var con = new EfContext())
+            {
+                var loaded = con.Find<Garage>(garage.Id);
+                loaded.Should().NotBeNull();
+            }
+        }
+
+        [Fact]
+        public void Deleting_a_garage_should_not_delete_the_car()
+        {
+            var car = new Car() { Manufacturer = "A1" };
+            var garage = new Garage() { Name = "G1" };
+            car.Garage = garage;
+
+            using (var con = new EfContext())
+            {
+                con.Add(car);
+                con.SaveChanges().Should().Be(2);
+            }
+
+            using (var con = new EfContext())
+            {
+                var loaded = con.Find<Garage>(garage.Id);
+                con.Remove(loaded);
+                con.SaveChanges().Should().Be(1);
+            }
+
+            using (var con = new EfContext())
+            {
+                var loaded = con.Find<Car>(car.Id);
+                loaded.Should().NotBeNull();
+                loaded.Garage.Should().BeNull();
+            }
+        }
     }
 
     internal class PropertyNameOmitter : ISpecimenBuilder

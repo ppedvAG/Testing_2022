@@ -19,5 +19,13 @@ namespace ppedv.CarManager.Data.EfCore
         {
             optionsBuilder.UseLazyLoadingProxies().UseSqlServer(conString);
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Car>()
+                        .HasOne(x => x.Garage)
+                        .WithMany(x => x.Cars)
+                        .OnDelete(DeleteBehavior.SetNull);
+        }
     }
 }
